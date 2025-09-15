@@ -4,10 +4,10 @@ import { requireAdmin, createUnauthorizedResponse, createForbiddenResponse } fro
 
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: { slug: string; }; }
+	{ params }: { params: Promise<{ slug: string; }>; }
 ) {
 	try {
-		const { slug } = params;
+		const { slug } = await params;
 
 		// Get recipe by ID from database
 		const recipe = await recipeDb.getRecipeById(slug);
@@ -33,12 +33,12 @@ export async function GET(
 	}
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { slug: string; }; }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ slug: string; }>; }) {
 	try {
 		// Require admin authentication
 		const user = await requireAdmin(request);
 
-		const { slug } = params;
+		const { slug } = await params;
 		const success = await recipeDb.deleteRecipeBySlug(slug);
 
 		return NextResponse.json({
