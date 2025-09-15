@@ -11,7 +11,7 @@ export default function NotFound() {
         </div>
         <h1 className='text-4xl font-bold text-primary mb-4'>Recipe Not Found</h1>
         <p className='text-xl text-on-surface-variant mb-8 max-w-md mx-auto'>
-          Sorry, we couldn't find the recipe you're looking for. It might have been moved or deleted.
+          Sorry, we couldn&apos;t find the recipe you&apos;re looking for. It might have been moved or deleted.
         </p>
         <div className='space-x-4'>
           <Link

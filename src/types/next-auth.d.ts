@@ -1,4 +1,3 @@
-import NextAuth from 'next-auth';
 
 export type UserRole = 'user' | 'admin';
 

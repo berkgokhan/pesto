@@ -69,49 +69,51 @@ export function SearchProvider({
 
   const searchParams = useSearchParams();
 
-  // Update URL when search parameters change
+  // Initialize state from URL params on mount
+  useEffect(() => {
+    const urlQuery = searchParams.get('q') || '';
+    const urlSort = searchParams.get('s') || 'featured';
+    const urlTags = searchParams.get('t')?.split(',').filter(Boolean) || [];
+    const urlPageSize = parseInt(searchParams.get('m') || '6');
+    const urlPage = parseInt(searchParams.get('page') || '1');
+
+    // Only update if different from current state
+    if (urlQuery !== searchQuery) setSearchQuery(urlQuery);
+    if (urlSort !== sortBy) setSortBy(urlSort);
+    if (JSON.stringify(urlTags) !== JSON.stringify(selectedTags)) setSelectedTags(urlTags);
+    if (urlPageSize !== pageSize) setPageSize(urlPageSize);
+    if (urlPage !== currentPage) setCurrentPage(urlPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run on mount
+
+  // Update URL and fetch data when search parameters change
   useEffect(() => {
     const update = async () => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams();
 
       // Update search query
       if (searchQuery) {
         params.set('q', searchQuery);
-      }
-      else {
-        params.delete('q');
       }
 
       // Update sort
       if (sortBy !== 'featured') {
         params.set('s', sortBy);
       }
-      else {
-        params.delete('s');
-      }
 
       // Update tags
       if (selectedTags.length > 0) {
         params.set('t', selectedTags.join(','));
-      }
-      else {
-        params.delete('t');
       }
 
       // Update page size
       if (pageSize !== 6) {
         params.set('m', pageSize.toString());
       }
-      else {
-        params.delete('m');
-      }
 
       // Update current page
       if (currentPage !== 1) {
         params.set('page', currentPage.toString());
-      }
-      else {
-        params.delete('page');
       }
 
       // fetch and update recipes value
@@ -132,7 +134,7 @@ export function SearchProvider({
       window.history.replaceState({}, '', newUrl);
     };
     update();
-  }, [searchQuery, sortBy, selectedTags, pageSize, currentPage, searchParams]);
+  }, [searchQuery, sortBy, selectedTags, pageSize, currentPage]);
 
   const toggleTag = (tag: string) => {
     setSelectedTags(prev =>

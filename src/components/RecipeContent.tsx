@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { deleteRecipeBySlug } from '@/lib/api';
 import { Recipe } from '@/types/recipe';
 import { Trash2, AlertCircle } from 'lucide-react';
@@ -49,9 +50,9 @@ export default function RecipeContent({ recipe }: RecipeContentProps) {
 					<h1 className='text-4xl font-bold text-on-surface'>{recipe.title}</h1>
 					{session?.user?.role === 'admin' && (
 						<button
-							onClick={handleDeleteRecipe}
 							disabled={isDeleting}
 							className='flex items-center gap-2 px-4 py-2 bg-error-container text-on-error-container rounded-lg hover:bg-error-container/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors'
+							onClick={handleDeleteRecipe}
 						>
 							<Trash2 className='size-4' />
 							{isDeleting ? 'Deleting...' : 'Delete Recipe'}
@@ -72,9 +73,11 @@ export default function RecipeContent({ recipe }: RecipeContentProps) {
 			{/* Recipe Image */}
 			{recipe.imageSrc && (
 				<div className='w-full'>
-					<img
+					<Image
 						src={recipe.imageSrc}
 						alt={recipe.title}
+						width={800}
+						height={256}
 						className='w-full h-64 object-cover rounded-2xl'
 					/>
 				</div>

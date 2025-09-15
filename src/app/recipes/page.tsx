@@ -5,11 +5,6 @@ import PageSizeSelector from '@/components/search/PageSizeSelector';
 import { SearchProvider } from '@/contexts/SearchContext';
 import RecipesGrid from '@/components/search/RecipesGrid';
 
-function Aside() {
-  return (
-    <aside className='w-full h-full bg-surface-container rounded-lg' />
-  );
-}
 
 interface SearchParams {
   query: string;

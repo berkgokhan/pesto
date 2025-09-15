@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import Logo from '@/components/Logo';
-import { Github, Instagram, Twitter, MoveRightIcon, LogOut, User, Shield, Crown } from 'lucide-react';
+import { Github, Instagram, Twitter, MoveRightIcon, LogOut, User, Crown } from 'lucide-react';
 import { UserRole } from '@/types/next-auth';
 
 export default function Header() {
@@ -22,14 +22,6 @@ export default function Header() {
     }
   };
 
-  const getRoleBadgeColor = (role: UserRole) => {
-    switch (role) {
-      case 'admin':
-        return 'bg-warning-container text-on-warning-container';
-      default:
-        return 'bg-secondary-container text-on-secondary-container';
-    }
-  };
 
   return (
     <div className='w-full flex items-end justify-between gap-16'>
@@ -63,8 +55,8 @@ export default function Header() {
                 <span className='text-sm font-medium'>{session.user?.name || session.user?.email}</span>
               </div>
               <button
-                onClick={handleSignOut}
                 className='flex flex-row items-center justify-center gap-2 px-6 py-2 rounded-lg font-body text-lg bg-error-container text-on-error-container hover:bg-error-container/80 transition-colors'
+                onClick={handleSignOut}
               >
                 Sign out
                 <LogOut className='size-[1.25em]' />

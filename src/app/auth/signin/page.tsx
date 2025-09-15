@@ -49,7 +49,7 @@ export default function SignInPage() {
 				}
 			}
 		}
-		catch (error) {
+		catch {
 			setError('An error occurred. Please try again.');
 		}
 		finally {
@@ -77,7 +77,7 @@ export default function SignInPage() {
 						</div>
 					</div>
 
-					<form onSubmit={handleSubmit} className='w-full flex flex-col items-start justify-start gap-4'>
+					<form className='w-full flex flex-col items-start justify-start gap-4' onSubmit={handleSubmit}>
 						{/* Email field */}
 						<div className='w-full'>
 							<label htmlFor='email' className='w-full block text-sm font-medium text-on-surface mb-2'>
@@ -86,13 +86,13 @@ export default function SignInPage() {
 							<div className='relative w-full'>
 								<Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-on-surface-variant' />
 								<input
+									required
 									id='email'
 									type='email'
 									value={email}
-									onChange={(e) => setEmail(e.target.value)}
 									className='w-full pl-10 pr-4 py-3 border border-outline rounded-lg bg-surface-container-highest text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
 									placeholder='Enter your email'
-									required
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 							</div>
 						</div>
@@ -105,18 +105,18 @@ export default function SignInPage() {
 							<div className='relative w-full'>
 								<Lock className='absolute left-3 top-1/2 transform -translate-y-1/2 size-5 text-on-surface-variant' />
 								<input
+									required
 									id='password'
 									type={showPassword ? 'text' : 'password'}
 									value={password}
-									onChange={(e) => setPassword(e.target.value)}
 									className='w-full pl-10 pr-12 py-3 border border-outline rounded-lg bg-surface-container-highest text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent'
 									placeholder='Enter your password'
-									required
+									onChange={(e) => setPassword(e.target.value)}
 								/>
 								<button
 									type='button'
-									onClick={() => setShowPassword(!showPassword)}
 									className='absolute right-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant hover:text-on-surface'
+									onClick={() => setShowPassword(!showPassword)}
 								>
 									{showPassword ? <EyeOff className='size-5' /> : <Eye className='size-5' />}
 								</button>

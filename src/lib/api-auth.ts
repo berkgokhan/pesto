@@ -103,8 +103,8 @@ export function createForbiddenResponse(message: string = 'Forbidden') {
 /**
  * Wrapper for API routes that require authentication
  */
-export function withAuth(handler: (request: NextRequest, user: AuthenticatedUser, ...args: any[]) => Promise<NextResponse>) {
-	return async (request: NextRequest, ...args: any[]): Promise<NextResponse> => {
+export function withAuth(handler: (request: NextRequest, user: AuthenticatedUser, ...args: unknown[]) => Promise<NextResponse>) {
+	return async (request: NextRequest, ...args: unknown[]): Promise<NextResponse> => {
 		try {
 			const user = await requireAuth(request);
 			return await handler(request, user, ...args);
@@ -118,8 +118,8 @@ export function withAuth(handler: (request: NextRequest, user: AuthenticatedUser
 /**
  * Wrapper for API routes that require admin access
  */
-export function withAdminAuth(handler: (request: NextRequest, user: AuthenticatedUser, ...args: any[]) => Promise<NextResponse>) {
-	return async (request: NextRequest, ...args: any[]): Promise<NextResponse> => {
+export function withAdminAuth(handler: (request: NextRequest, user: AuthenticatedUser, ...args: unknown[]) => Promise<NextResponse>) {
+	return async (request: NextRequest, ...args: unknown[]): Promise<NextResponse> => {
 		try {
 			const user = await requireAdmin(request);
 			return await handler(request, user, ...args);
